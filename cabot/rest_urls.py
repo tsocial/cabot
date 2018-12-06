@@ -5,6 +5,7 @@ from django.contrib.auth import models as django_models
 
 from polymorphic.models import PolymorphicModel
 from cabot.cabotapp import models, alert
+from cabot_check_prometheus.models import PrometheusStatusCheck
 from rest_framework import routers, serializers, viewsets, mixins
 import logging
 
@@ -88,6 +89,18 @@ router.register(r'graphite_checks', create_viewset(
     arg_model=models.GraphiteStatusCheck,
     arg_fields=status_check_fields + (
         'metric',
+        'check_type',
+        'value',
+        'expected_num_hosts',
+        'allowed_num_failures',
+    ),
+))
+
+router.register(r'prometheus_checks', create_viewset(
+    arg_model=PrometheusStatusCheck,
+    arg_fields=status_check_fields + (
+        'query',
+        'host',
         'check_type',
         'value',
         'expected_num_hosts',
