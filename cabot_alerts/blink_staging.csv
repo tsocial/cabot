@@ -1,0 +1,22 @@
+blink-staging-mysql-5-5-check|nomad_job_summary_blink_staging_mysql5_5{datacenter="central_monitoring",status="running"}|<|1
+blink-staging-mysql-8-check|nomad_job_summary_blink_staging_mysql_8{datacenter="central_monitoring",status="running"}|<|1
+blink-staging-postgres-check|nomad_job_summary_blink_staging_postgres{datacenter="central_monitoring",status="running"}|<|1
+blink-staging-sidekiq-check|nomad_job_summary_blink_staging_sidekiq{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-proxy-check|nomad_job_summary_blink_staging_proxy{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-redis-check|nomad_job_summary_blink_staging_redis{datacenter="central_monitoring",status="running"}|<|1
+blink-staging-monitoring-check|nomad_job_summary_blink_staging_monitoring{datacenter="central_monitoring",status="running"}|<|1
+blink-staging-disbursement-check|nomad_job_summary_blink_staging_disbursement{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-drools-dashboard-check|nomad_job_summary_blink_staging_drools_dashboard{datacenter="central_monitoring",status="running"}|<|1
+blink-staging-drools-server-check|nomad_job_summary_blink_staging_drools_server{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-event-sink-check|nomad_job_summary_blink_staging_event_sink{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-fineract-check|nomad_job_summary_blink_staging_fineract{datacenter="central_monitoring",status="running"}|<|1
+blink-staging-fineract-ui-check|nomad_job_summary_blink_staging_fineract_ui{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-api-check|nomad_job_summary_blink_staging_api{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-app-ui-check|nomad_job_summary_blink_staging_app_ui{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-decision-engine-check|nomad_job_summary_blink_staging_decision_engine_java{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-admin-api-check|nomad_job_summary_blink_staging_admin_api{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-support-app-ui-check|nomad_job_summary_blink_staging_support_app_ui{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-tcash-stub-api-check|nomad_job_summary_blink_staging_tcash_api_stub{datacenter="central_monitoring",status="running"}|<|1
+blink-staging-nomad-proxy-check|nomad_job_summary_nomad_proxy_blink_staging{datacenter="central_monitoring",status="running"}|<|2
+blink-staging-disk-used-percent|nomad_client_host_disk_used_percent{datacenter="blink_staging"}|>|70
+blink-staging-cpu-used-percent|avg by(__name__, instance)((nomad_client_host_cpu_total{datacenter="blink_production"}))|>|70

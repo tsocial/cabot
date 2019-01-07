@@ -13,8 +13,6 @@ FREQUENCY = 5
 DEBOUNCE = 2
 CALCULATED_STATUS = "passing"
 ZERO = 0
-USER = "admin"
-PASS = "hello-world-123"
 
 
 def parse_args():
@@ -24,6 +22,8 @@ def parse_args():
     parser.add_argument("url", type=str, help="URL of Cabot API")
     parser.add_argument("host", type=str, help="Host for the cabot check")
     parser.add_argument("config_file", type=str, help="path/to/checks")
+    parser.add_argument("user", type=str, help="username")
+    parser.add_argument("password", type=str, help="password")
     return parser
 
 
@@ -48,7 +48,7 @@ def create_check(url, host, check_name, check_query, check_type, check_value):
     headers = {'Content-Type': "application/json"}
     if check_alert_exists(check_name, url) == "[]":
         print("Creating check for %s" % check_name)
-        response = requests.post(post_url, data=data, headers=headers, auth=(USER, PASS))
+        response = requests.post(post_url, data=data, headers=headers, auth=(user, password))
         return response.status_code
 
 
@@ -59,7 +59,7 @@ def fix_cabot_query(query):
 def check_alert_exists(check_name, url):
     get_url = url + "/api/prometheus_checks/?name=%s" % check_name
     headers = {'Content-Type': "application/json"}
-    response = requests.get(get_url, headers=headers, auth=(USER, PASS))
+    response = requests.get(get_url, headers=headers, auth=(user, password))
     return response.text
 
 
@@ -83,5 +83,7 @@ if __name__ == '__main__':
     url = str(parser["url"])
     host = str(parser["host"])
     config_file = str(parser["config_file"])
+    user = str(parser["user"])
+    password = str(parser["password"])
 
     generate_checks(url, host, config_file)

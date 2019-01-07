@@ -1,0 +1,27 @@
+blink-prod-lighthouse-check|nomad_job_summary_blink_production_lighthouse{datacenter="central_monitoring",status="running"}|<|1
+blink-prod-mysql-5-5-check|nomad_job_summary_blink_production_mysql5_5{datacenter="central_monitoring",status="running"}|<|1
+blink-prod-mysql-8-check|nomad_job_summary_blink_production_mysql_8{datacenter="central_monitoring",status="running"}|<|1
+blink-prod-postgres-check|nomad_job_summary_blink_production_postgres{datacenter="central_monitoring",status="running"}|<|1
+blink-prod-sidekiq-check|nomad_job_summary_blink_production_sidekiq{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-proxy-check|nomad_job_summary_blink_production_proxy{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-redash-server-check|nomad_job_summary_blink_production_redash{datacenter="central_monitoring",status="running",task_group="server"}|<|1
+blink-prod-redash-worker-check|nomad_job_summary_blink_production_redash{datacenter="central_monitoring",status="running",task_group="worker"}|<|1
+blink-prod-redash-redis-check|nomad_job_summary_blink_production_redash_redis{datacenter="central_monitoring",status="running"}|<|1
+blink-prod-redis-check|nomad_job_summary_blink_production_redis{datacenter="central_monitoring",status="running"}|<|1
+blink-prod-monitoring-check|nomad_job_summary_blink_production_monitoring{datacenter="central_monitoring",status="running"}|<|1
+blink-prod-disbursement-check|nomad_job_summary_blink_production_disbursement{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-drools-dashboard-check|nomad_job_summary_blink_production_drools_dashboard{datacenter="central_monitoring",status="running"}|<|1
+blink-prod-drools-server-check|nomad_job_summary_blink_production_drools_server{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-event-sink-check|nomad_job_summary_blink_production_event_sink{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-fineract-check|nomad_job_summary_blink_production_fineract{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-fineract-ui-check|nomad_job_summary_blink_production_fineract_ui{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-api-check|nomad_job_summary_blink_production_api{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-app-ui-check|nomad_job_summary_blink_production_app_ui{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-decision-engine-check|nomad_job_summary_blink_production_decision_engine_java{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-cabot-postgres-check|nomad_job_summary_blink_production_cabot_postgres{datacenter="central_monitoring",status="running"}|<|1
+blink-prod-cabot-redis-check|nomad_job_summary_blink_production_cabot_redis{datacenter="central_monitoring",status="running"}|<|1
+blink-prod-admin-api-check|nomad_job_summary_blink_production_admin_api{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-support-app-ui-check|nomad_job_summary_blink_production_support_app_ui{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-nomad-proxy-check|nomad_job_summary_nomad_proxy_blink_prod{datacenter="central_monitoring",status="running"}|<|2
+blink-prod-disk-used-percent|nomad_client_host_disk_used_percent{datacenter="blink_production"}|>|70
+blink-prod-cpu-used-percent|avg by(__name__, instance)((nomad_client_host_cpu_total{datacenter="blink_production"}))|>|70
