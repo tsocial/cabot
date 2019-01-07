@@ -1,20 +1,20 @@
-import argparse
 import csv
 import json
+import argparse
 
 import requests
 
 # python checks.py http://localhost:5001 http://10.22.8.12:9090
 # /home/akshay/PycharmProjects/Scripts/venv/cabot/alerts.conf
 
-ACTIVE = "true"
-IMPORTANCE = "ERROR"
-FREQUENCY = 5
-DEBOUNCE = 2
-CALCULATED_STATUS = "passing"
 ZERO = 0
+DEBOUNCE = 2
+FREQUENCY = 5
+ACTIVE = "true"
 USER = "admin"
 PASS = "hello-world-123"
+IMPORTANCE = "ERROR"
+CALCULATED_STATUS = "passing"
 
 
 def parse_args():
@@ -34,7 +34,7 @@ def create_check(url, host, check_name, check_query, check_type, check_value):
               "active": %s,
               "importance": "%s",
               "frequency": %d,
-              "debounce": %d, 
+              "debounce": %d,
               "calculated_status": "%s",
               "query": "%s",
               "host": "%s",
@@ -42,13 +42,15 @@ def create_check(url, host, check_name, check_query, check_type, check_value):
               "value": "%s",
               "expected_num_hosts": %d,
               "allowed_num_failures": %d
-              } """ % (check_name, ACTIVE, IMPORTANCE, FREQUENCY, DEBOUNCE, CALCULATED_STATUS,
-                       check_query, host, check_type, check_value, ZERO, ZERO)
+              } """ % (check_name, ACTIVE, IMPORTANCE, FREQUENCY, DEBOUNCE,
+                       CALCULATED_STATUS, check_query, host, check_type,
+                       check_value, ZERO, ZERO)
 
     headers = {'Content-Type': "application/json"}
     if check_alert_exists(check_name, url) == "[]":
         print("Creating check for %s" % check_name)
-        response = requests.post(post_url, data=data, headers=headers, auth=(USER, PASS))
+        response = requests.post(post_url, data=data, headers=headers,
+                                 auth=(USER, PASS))
         return response.status_code
 
 
@@ -74,7 +76,9 @@ def generate_checks(url, host, config_file):
     check_list = read_checks_file(config_file)
     for check in check_list:
         check_params = check.split(sep="|")
-        create_check(url, host, check_params[0], fix_cabot_query(check_params[1]), check_params[2], check_params[3])
+        create_check(url, host, check_params[0],
+                     fix_cabot_query(check_params[1]), check_params[2],
+                     check_params[3])
 
 
 if __name__ == '__main__':
