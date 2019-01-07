@@ -34,7 +34,7 @@ def create_check(url, host, check_name, check_query, check_type, check_value):
               "active": %s,
               "importance": "%s",
               "frequency": %d,
-              "debounce": %d, 
+              "debounce": %d,
               "calculated_status": "%s",
               "query": "%s",
               "host": "%s",
@@ -42,8 +42,9 @@ def create_check(url, host, check_name, check_query, check_type, check_value):
               "value": "%s",
               "expected_num_hosts": %d,
               "allowed_num_failures": %d
-              } """ % (check_name, ACTIVE, IMPORTANCE, FREQUENCY, DEBOUNCE, CALCULATED_STATUS,
-                       check_query, host, check_type, check_value, ZERO, ZERO)
+              } """ % (check_name, ACTIVE, IMPORTANCE, FREQUENCY, DEBOUNCE,
+                       CALCULATED_STATUS, check_query, host, check_type,
+                       check_value, ZERO, ZERO)
 
     headers = {'Content-Type': "application/json"}
     if check_alert_exists(check_name, url) == "[]":
@@ -74,7 +75,9 @@ def generate_checks(url, host, config_file):
     check_list = read_checks_file(config_file)
     for check in check_list:
         check_params = check.split(sep="|")
-        create_check(url, host, check_params[0], fix_cabot_query(check_params[1]), check_params[2], check_params[3])
+        create_check(url, host, check_params[0],
+                     fix_cabot_query(check_params[1]), check_params[2],
+                     check_params[3])
 
 
 if __name__ == '__main__':
