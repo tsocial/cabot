@@ -91,90 +91,11 @@
 {% include 'cabotapp/_instance_list.html' with instances=service.instances.all %}
   </div>
 </div>
-<hr>
-
-{% include 'cabotapp/_statuscheck_list.html' with checks=service.graphite_status_checks.all service=service checks_type="Graphite" %}
-
-<hr>
-
-{% include 'cabotapp/_statuscheck_list.html' with checks=service.http_status_checks.all service=service checks_type="Http" %}
-
-<hr>
-
-{% include 'cabotapp/_statuscheck_list.html' with checks=service.jenkins_status_checks.all service=service checks_type="Jenkins" %}
 
 {% for custom_check in custom_check_types %}
 <hr>
 {% include 'cabotapp/_statuscheck_list.html' with checks=custom_check.objects|for_service:service service=service checks_type=custom_check.check_name %}
 {% endfor %}
-<hr>
-
-<div class="row">
-  <div class="col-xs-12">
-    <div class="col-xs-1"><h3><i class="fa fa-table"></i></h3></div>
-    <div class="col-xs-11">
-      <h3>Status check report</h3>
-    </div>
-    <div class="col-xs-12">
-      <form action="{% url "checks-report" %}" method="get">
-        <div class="form-group">
-          <div class="col-xs-12">
-            {{ report_form.service }}
-            <label class="col-xs-2 control-label">{{ report_form.checks.label_tag }}</label>
-            <div class="col-xs-10">{{ report_form.checks }}</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-xs-12">
-            <label class="col-xs-2 control-label">{{ report_form.date_from.label_tag }}</label>
-            <div class="col-xs-10">{{ report_form.date_from }}</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-xs-12">
-            <label class="col-xs-2 control-label">{{ report_form.date_to.label_tag }}</label>
-            <div class="col-xs-10">{{ report_form.date_to }}</div>
-          </div>
-        </div>
-        <div class="col-xs-12">
-          <div class="form-group">
-            <div class="col-xs-6 col-xs-offset-2">
-              <button type="submit" class="btn btn-primary">Get report</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<hr>
-
-<div class="row">
-  <div class="col-xs-12">
-    <div class="col-xs-1"><h3><i class="fa fa-exclamation-triangle"></i></h3></div>
-    <div class="col-xs-11">
-      <h3>Documentation</h3>
-    </div>
-    {% if service.runbook_link %}
-    <div class="col-xs-11 col-xs-offset-1">
-      Runbook Link: <a href="{{ service.runbook_link }}">{{ service.runbook_link }}</a>
-    </div>
-    {% else %}
-    <div class="col-xs-11 col-xs-offset-1">
-      No runbook link configured
-    </div>
-    {% endif %}
-    {% if service.hackpad_id %}
-    <div class="col-xs-11 col-xs-offset-1">
-      Displaying <a href="{{ service.hackpad_id }}">{{ service.hackpad_id }}</a>:
-      <script src="{{ service.hackpad_id }}"></script>
-    </div>
-    {% else %}
-    <div class="col-xs-11 col-xs-offset-1">No embedded recovery instructions configured</div>
-    {% endif %}
-  </div>
-</div>
 
 {% endblock content %}
 

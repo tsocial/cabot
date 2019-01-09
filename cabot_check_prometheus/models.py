@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-import json
+
 import requests
+from django.db import models
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 from urlparse import urlparse
 
-from django.db import models
-from django.utils import timezone
-
 from cabot.cabotapp.models import StatusCheck, StatusCheckResult
+
 
 def process_matrix(data):
     metrics = []
@@ -22,7 +23,6 @@ def process_matrix(data):
 
 
 def process_vector(data, ret):
-
     all_values = []
     for target in data['result']:
         series = {'values': [float(target['value'][1])]}
@@ -58,6 +58,7 @@ def process_string(data):
 
 def process_unknown(data):
     print('processing unknown')
+
 
 class PrometheusStatusCheck(StatusCheck):
     check_name = 'prometheus'
@@ -100,25 +101,42 @@ class PrometheusStatusCheck(StatusCheck):
                 'query': self.query
             }
 
-            r = requests.get(url.geturl(), params=payload)
-            data = r.json()['data']
-            type = data['resultType']
+            r = self.retry_requests().get(url.geturl(), params=payload)
+            if r.json()["data"]:
+                data = r.json()['data']
+                type = data['resultType']
 
-            if type == 'matrix':
-                ret_val = process_matrix(data)
-            elif type == 'vector':
-                process_vector(data, ret)
-            elif type == 'scalar':
-                ret_val = process_scalar(data)
-            elif type == 'string':
-                ret_val = process_string(data)
+                if type == 'matrix':
+                    ret_val = process_matrix(data)
+                elif type == 'vector':
+                    process_vector(data, ret)
+                elif type == 'scalar':
+                    ret_val = process_scalar(data)
+                elif type == 'string':
+                    ret_val = process_string(data)
+                else:
+                    ret_val = process_unknown(data)
             else:
-                ret_val = process_unknown(data)
-
+                print("No data returned.")
         except Exception as e:
             ret["error"] = u"{} {}".format(e.message, self.host)
 
         return ret
+
+    def retry_requests(self, retries=3, backoff_factor=10, status_forcelist=(500, 502, 504), session=None):
+        session = session or requests.Session()
+        retry = Retry(
+            total=retries,
+            read=retries,
+            connect=retries,
+            backoff_factor=backoff_factor,
+            status_forcelist=status_forcelist
+        )
+
+        adapter = HTTPAdapter(max_retries=retry)
+        session.mount('http://', adapter)
+        session.mount('https://', adapter)
+        return session
 
     def format_error_message(self, failures, actual_hosts=None,
                              hosts_by_target=None):
