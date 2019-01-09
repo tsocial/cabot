@@ -133,7 +133,6 @@ class PrometheusStatusCheck(StatusCheck):
             status_forcelist=status_forcelist
         )
 
-        print("---------------------------------------------")
         adapter = HTTPAdapter(max_retries=retry)
         session.mount('http://', adapter)
         session.mount('https://', adapter)
